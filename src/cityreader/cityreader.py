@@ -70,14 +70,31 @@ for c in cities:
 # Tucson: (32.1558,-110.8777)
 # Salt Lake City: (40.7774,-111.9301)
 
-# TODO Get latitude and longitude values from the user
+print('Enter two coordinates in the northern and western hemispheres ')
+lat1 = float(input('first corner latitude: '))
+lon1 = float(input('first corner longitude: '))
+lat2 = float(input('opposite corner latitude: '))
+lon2 = float(input('opposite corner longitude: '))
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
-  # within will hold the cities that fall within the specified region
-  within = []
 
-  # TODO Ensure that the lat and lon valuse are all floats
-  # Go through each city and check to see if it falls within 
-  # the specified coordinates.
+    within = []
+    
+    if lat1 == lat2 or lon1 == lon2:
+        return('Invalid region.')
 
-  return within
+    south = min(lat1, lat2)
+    north = max(lat1, lat2)
+    west = min(lon1, lon2)
+    east = max(lon1, lon2)
+
+    for c in cities:
+    
+        if lat1 <= c.lat <= lat2 and lon1 <= c.lon <= lon2:
+            within.append(f'{c.name}: ({c.lat}, {c.lon})')
+
+    return within
+
+result = cityreader_stretch(lat1, lon1, lat2, lon2, cities)
+for _ in result:
+    print(_)
